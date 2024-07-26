@@ -117,7 +117,7 @@ namespace DungeonArchitect.Flow.Exec
             
             var taskInput = new FlowTaskExecInput();
             taskInput.IncomingTaskOutputs = incomingTaskOutputs.ToArray();
-
+            Debug.Log("Executing node: " + execNode.task.GetType().Name);
             var taskOutput = execNode.task.Execute(taskContext, taskInput);
             {
                 execNode.executionStatus.ErrorMessage = taskOutput.ErrorMessage;

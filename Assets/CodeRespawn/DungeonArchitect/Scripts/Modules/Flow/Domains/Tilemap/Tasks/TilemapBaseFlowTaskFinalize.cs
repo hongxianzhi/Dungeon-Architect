@@ -34,7 +34,10 @@ namespace DungeonArchitect.Flow.Domains.Tilemap.Tasks
 
             var graph = output.State.GetState<FlowLayoutGraph>();
 
-            if (!AssignItems(tilemap, graph, context.Random, ref output.ErrorMessage))
+            string errorMessage = "";
+            bool success = AssignItems(tilemap, graph, context.Random, ref errorMessage);
+            output.ErrorMessage = errorMessage;
+            if (!success)
             {
                 output.ExecutionResult = FlowTaskExecutionResult.FailRetry;
                 return output;

@@ -78,6 +78,7 @@ namespace DungeonArchitect.Flow.Impl.GridFlow.Tasks
             base.FinalizePath(staticState, sharedState, state);
             
             // Tag the nodes as main path
+            string msg = "Main Path: ";
             int size = state.Path.Count;
             for (var i = 0; i < size; i++)
             {
@@ -86,6 +87,8 @@ namespace DungeonArchitect.Flow.Impl.GridFlow.Tasks
                 if (pathNode != null)
                 {
                     pathNode.mainPath = true;
+                    var coord = pathNode.coord;
+                    msg += string.Format("{0} {1}\n", i, coord);
 
                     var nodeState = pathNode.GetDomainData<GridFlowLayoutNodeState>();
                     nodeState.CanPerturb = true;
@@ -101,6 +104,7 @@ namespace DungeonArchitect.Flow.Impl.GridFlow.Tasks
                     }
                 }
             }
+            Debug.Log(msg);
         }
         
         private Vector2Int FindGridSize(FlowLayoutGraph graph)

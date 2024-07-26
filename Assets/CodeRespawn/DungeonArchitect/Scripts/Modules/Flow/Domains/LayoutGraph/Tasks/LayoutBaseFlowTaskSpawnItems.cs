@@ -67,8 +67,13 @@ namespace DungeonArchitect.Flow.Domains.Layout.Tasks
                 return output;
             }
             
+            string errorMessage = "";
             output.State = input.CloneInputState();
-            if (!Validate(context, input, ref output.ErrorMessage, ref output.ExecutionResult))
+            FlowTaskExecutionResult result = FlowTaskExecutionResult.Success;
+            bool success = Validate(context, input, ref errorMessage, ref result);
+            output.ErrorMessage = errorMessage;
+            output.ExecutionResult = result;
+            if (!success)
             {
                 return output;
             }

@@ -39,8 +39,13 @@ namespace DungeonArchitect.Flow.Domains.Layout.Tasks
                 return output;
             }
             
+            string errorMessage = "";
             output.State = input.CloneInputState();
-            if (!Validate(context, input, ref output.ErrorMessage, ref output.ExecutionResult))
+            FlowTaskExecutionResult result = FlowTaskExecutionResult.Success;
+            bool success = Validate(context, input, ref errorMessage, ref result);
+            output.ErrorMessage = errorMessage;
+            output.ExecutionResult = result;
+            if (!success)
             {
                 return output;
             }
@@ -51,7 +56,9 @@ namespace DungeonArchitect.Flow.Domains.Layout.Tasks
             FlowLayoutGraphLink lockLink;
             
             var graphQuery = new FlowLayoutGraphQuery(graph);
-            if (FindKeyLockSetup(graphQuery, context.Random, out keyNode, out lockLink, out output.ErrorMessage))
+            success = FindKeyLockSetup(graphQuery, context.Random, out keyNode, out lockLink, out errorMessage);
+            output.ErrorMessage = errorMessage;
+            if (success)
             {
                 var keyItem = new FlowItem();
                 keyItem.type = FlowGraphItemType.Key;

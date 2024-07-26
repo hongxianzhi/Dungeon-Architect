@@ -90,7 +90,22 @@ namespace DungeonArchitect.Flow.Domains.Layout.Pathing
     {
         public FFAGConstraintsLink LinkFromHead;
         public FFAGConstraintsLink LinkToTail;
-        public EFlowLayoutGrowthErrorType LastError = EFlowLayoutGrowthErrorType.None;
+        EFlowLayoutGrowthErrorType _LastError = EFlowLayoutGrowthErrorType.None;
+        public EFlowLayoutGrowthErrorType LastError
+        {
+            get
+            {
+                return _LastError;
+            }
+            set
+            {
+                _LastError = value;
+                if(_LastError != EFlowLayoutGrowthErrorType.None)
+                {
+                    Debug.LogFormat("Flow Growth Error: {0}", _LastError);
+                }
+            }
+        }
     }
 
     class FlowLayoutGraphPathUtils {

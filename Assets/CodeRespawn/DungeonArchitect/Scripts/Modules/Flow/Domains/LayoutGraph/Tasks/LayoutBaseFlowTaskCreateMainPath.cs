@@ -106,7 +106,12 @@ namespace DungeonArchitect.Flow.Domains.Layout.Tasks
                 return output;
             }
 
-            if (!Validate(context, input, ref output.ErrorMessage, ref output.ExecutionResult))
+            string errorMessage = "";
+            FlowTaskExecutionResult result = FlowTaskExecutionResult.Success;
+            bool success = Validate(context, input, ref errorMessage, ref result);
+            output.ErrorMessage = errorMessage;
+            output.ExecutionResult = result;
+            if (!success)
             {
                 return output;
             }
@@ -165,7 +170,7 @@ namespace DungeonArchitect.Flow.Domains.Layout.Tasks
             {
                 output.ErrorMessage = "Cannot find path";
             }
-
+            Debug.Log(output.ErrorMessage);
             output.ExecutionResult = FlowTaskExecutionResult.FailRetry;
             return output;
         }

@@ -65,6 +65,12 @@ namespace DungeonArchitect.Editors.Flow.DomainEditors.Layout2D
                 SelectedLayoutNode = previewLayoutNode;
             }
 
+            if(SelectedLayoutNode != null)
+            {
+                var coord = SelectedLayoutNode.coord;
+                Debug.Log("Selected Node: " + coord);
+            }
+
             if (NodeSelectionChanged != null)
             {
                 NodeSelectionChanged.Invoke(sender, e);

@@ -41,9 +41,35 @@ namespace DungeonArchitect.Flow.Exec
     public class FlowTaskExecOutput
     {
         public FlowExecTaskState State = new FlowExecTaskState();
-        public FlowTaskExecutionResult ExecutionResult = FlowTaskExecutionResult.FailHalt;
+        FlowTaskExecutionResult _ExecutionResult = FlowTaskExecutionResult.FailHalt;
+        public FlowTaskExecutionResult ExecutionResult
+        {
+            get 
+            {
+                return _ExecutionResult;
+            }
+            set
+            {
+                _ExecutionResult = value;
+                if (_ExecutionResult != FlowTaskExecutionResult.Success)
+                {
+                    Debug.LogFormat("Flow Task Execution Failed: {0}", ErrorMessage);
+                }
+            }
+        }
         public FlowTaskExecutionFailureReason FailureReason = FlowTaskExecutionFailureReason.Unknown;
-        public string ErrorMessage = "";
+        string _ErrorMessage = "";
+        public string ErrorMessage
+        {
+            get
+            {
+                return _ErrorMessage;
+            }
+            set
+            {
+                _ErrorMessage = value;
+            }
+        }
     }
     
     public abstract class FlowExecTask : ScriptableObject
