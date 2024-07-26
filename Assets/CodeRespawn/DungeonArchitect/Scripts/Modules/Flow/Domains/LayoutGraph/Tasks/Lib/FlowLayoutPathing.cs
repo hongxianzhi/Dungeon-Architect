@@ -23,7 +23,7 @@ namespace DungeonArchitect.Flow.Domains.Layout.Pathing
         public FlowLayoutGraph Graph;
         public FlowLayoutGraphQuery GraphQuery;
         public FlowLayoutGraphNode HeadNode = null;
-        public List<FlowLayoutGraphNode> SinkNodes = new List<FlowLayoutGraphNode>();
+        public List<FlowLayoutGraphNode> SinkNodes = new List<FlowLayoutGraphNode>(); //约束结束节点
         public System.Random Random;
         public int MinPathSize;
         public int MaxPathSize;

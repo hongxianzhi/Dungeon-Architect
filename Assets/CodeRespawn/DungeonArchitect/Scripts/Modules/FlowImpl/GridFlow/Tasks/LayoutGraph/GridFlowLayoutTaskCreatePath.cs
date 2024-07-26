@@ -27,6 +27,11 @@ namespace DungeonArchitect.Flow.Impl.GridFlow.Tasks
         
         private readonly InstanceCache instanceCache = new InstanceCache();
         
+        public override FlowTaskExecOutput Execute(FlowTaskExecContext context, FlowTaskExecInput input)
+        {
+            return base.Execute(context, input);
+        }
+
         private Vector2Int FindGridSize(FlowLayoutGraph graph)
         {
             var gridSize = Vector2Int.zero;
