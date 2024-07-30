@@ -105,6 +105,15 @@ namespace DungeonArchitect.Graphs.Adapters
                 }
             }
             return targetNodes.ToArray();
-        }      
+        } 
+
+        public T _CreateLinkInstance<T>() where T : GraphLink
+        {
+            T link = (T)Activator.CreateInstance(typeof(T));
+            link.Id = IndexCounter.GetNext();
+            link.Graph = this;
+            Links.Add(link);
+            return link;
+        }
     }
 }

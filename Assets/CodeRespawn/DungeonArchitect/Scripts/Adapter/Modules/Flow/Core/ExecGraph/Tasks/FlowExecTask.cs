@@ -52,7 +52,7 @@ namespace DungeonArchitect.Flow.Exec.Adapters
                 _ExecutionResult = value;
                 if (_ExecutionResult != FlowTaskExecutionResult.Success)
                 {
-                    //Debug.LogFormat("Flow Task Execution Failed: {0}", ErrorMessage);
+                    Debug.LogFormat("Flow Task Execution Failed: {0}", ErrorMessage);
                 }
             }
         }
@@ -157,7 +157,7 @@ namespace DungeonArchitect.Flow.Exec.Adapters
         {
             if (state != null)
             {
-                //Debug.Assert(state.GetType() == type || state.GetType().IsSubclassOf(type));
+                Debug.Assert(state.GetType() == type || state.GetType().IsSubclassOf(type));
                 states[type] = state;
             }
         }

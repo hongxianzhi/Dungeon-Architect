@@ -4,6 +4,37 @@ using DungeonArchitect.Flow.Domains.Adapters;
 
 namespace DungeonArchitect.Flow.Exec.Adapters
 {
+    public class Debug
+    {
+        static System.Action<string> _LogError = (message) => { };
+        public static System.Action<string> LogError
+        {
+            get { return _LogError; }
+            set { _LogError = value; }
+        }
+
+        static System.Action<string> _Log = (message) => { };
+        public static System.Action<string> Log
+        {
+            get { return _Log; }
+            set { _Log = value; }
+        }
+
+        static System.Action<string, string> _LogFormat = (message, format) => { };
+        public static System.Action<string, string> LogFormat
+        {
+            get { return _LogFormat; }
+            set { _LogFormat = value; }
+        }
+
+        static System.Action<bool> _Assert = (condition) => { };
+        public static System.Action<bool> Assert
+        {
+            get { return _Assert; }
+            set { _Assert = value; }
+        }
+    }
+
     public class FlowExecutionContext
     {
         public System.Random Random { get; set; }
@@ -26,14 +57,14 @@ namespace DungeonArchitect.Flow.Exec.Adapters
         {
             if (execGraph == null || random == null)
             {
-                //Debug.LogError("Invalid asset state");
+                Debug.LogError("Invalid asset state");
                 nodeOutputRegistry = null;
                 return false;
             }
 
             if (execGraph.resultNode == null)
             {
-                //Debug.LogError("Cannot find result node in Execution Graph");
+                Debug.LogError("Cannot find result node in Execution Graph");
                 nodeOutputRegistry = null;
                 return false;
             }
@@ -107,7 +138,7 @@ namespace DungeonArchitect.Flow.Exec.Adapters
                 }
                 
                 incomingTaskOutputs.Add(incomingTaskOutput);
-                //Debug.Assert(incomingTaskOutput != null);
+                Debug.Assert(incomingTaskOutput != null);
             }
 
             var taskContext = new FlowTaskExecContext();
@@ -116,7 +147,7 @@ namespace DungeonArchitect.Flow.Exec.Adapters
             
             var taskInput = new FlowTaskExecInput();
             taskInput.IncomingTaskOutputs = incomingTaskOutputs.ToArray();
-            //Debug.Log("Executing node: " + execNode.task.GetType().Name);
+            Debug.Log("Executing node: " + execNode.task.GetType().Name);
             var taskOutput = execNode.task.Execute(taskContext, taskInput);
             {
                 execNode.executionStatus.ErrorMessage = taskOutput.ErrorMessage;

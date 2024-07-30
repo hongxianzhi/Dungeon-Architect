@@ -1,4 +1,5 @@
 //$ Copyright 2015-22, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+using System.Numerics.Adapters;
 using System.Collections.Generic;
 
 namespace DungeonArchitect.Graphs.Adapters

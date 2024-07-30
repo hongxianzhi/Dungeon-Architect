@@ -1,6 +1,6 @@
 //$ Copyright 2015-22, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
-using UnityEngine;
 using System.Collections.Generic;
+using System.Numerics.Adapters;
 
 namespace DungeonArchitect.Graphs.Adapters
 {
@@ -29,6 +29,7 @@ namespace DungeonArchitect.Graphs.Adapters
     /// </summary>
     public class GraphPin
     {
+        public string name;
         GraphPinMouseState clickState = GraphPinMouseState.None;
         /// <summary>
         /// The state of the mouse input on this pin
@@ -45,7 +46,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        [SerializeField]
         GraphPinType pinType;
 
         /// <summary>
@@ -73,7 +73,6 @@ namespace DungeonArchitect.Graphs.Adapters
         /// <summary>
         /// The node this pin belongs to
         /// </summary>
-        [SerializeField]
         GraphNode node;
 
         /// <summary>
@@ -91,7 +90,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        [SerializeField]
         Vector2 position = new Vector2();
         /// <summary>
         /// The position of the graph pin, relative to the owning node's position
@@ -126,7 +124,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        [SerializeField]
         Rect boundsOffset = new Rect(0, 0, 20, 20);
         /// <summary>
         /// The bounds of the pin, relative to the node's position
@@ -143,7 +140,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        [SerializeField]
         Vector2 tangent = new Vector2();
         /// <summary>
         /// The tangent of the pin.  Links connected to this pin would come in or out from this direction
@@ -160,7 +156,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        [SerializeField]
         float tangentStrength = 50;
         /// <summary>
         /// The spring strength of the link connected to this pin
@@ -247,6 +242,5 @@ namespace DungeonArchitect.Graphs.Adapters
             get { return requestLinkDeletionInitiated; }
             set { requestLinkDeletionInitiated = value; }
         }
-
     }
 }

@@ -1,320 +1,15 @@
 //$ Copyright 2015-22, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 using System;
+using System.Numerics.Adapters;
 using System.Collections.Generic;
 
 namespace DungeonArchitect.Graphs.Adapters
 {
-    public class Vector2
-    {
-        private static readonly Vector2 zeroVector = new Vector2(0f, 0f);
-
-        private static readonly Vector2 oneVector = new Vector2(1f, 1f);
-
-        private static readonly Vector2 upVector = new Vector2(0f, 1f);
-
-        private static readonly Vector2 downVector = new Vector2(0f, -1f);
-
-        private static readonly Vector2 leftVector = new Vector2(-1f, 0f);
-
-        private static readonly Vector2 rightVector = new Vector2(1f, 0f);
-
-        private static readonly Vector2 positiveInfinityVector = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
-
-        private static readonly Vector2 negativeInfinityVector = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
-
-        public static Vector2 zero
-        {
-            get
-            {
-                return zeroVector;
-            }
-        }
-
-        public Vector2()
-        {
-        }
-
-        public Vector2(float x, float y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-
-        public float magnitude
-        {
-            get
-            {
-                return (float)Math.Sqrt(x * x + y * y);
-            }
-        }
-
-        public static Vector2 operator +(Vector2 a, Vector2 b)
-        {
-            return new Vector2(a.x + b.x, a.y + b.y);
-        }
-
-        public static Vector2 operator -(Vector2 a, Vector2 b)
-        {
-            return new Vector2(a.x - b.x, a.y - b.y);
-        }
-
-        public static Vector2 operator *(Vector2 a, Vector2 b)
-        {
-            return new Vector2(a.x * b.x, a.y * b.y);
-        }
-
-        public static Vector2 operator /(Vector2 a, Vector2 b)
-        {
-            return new Vector2(a.x / b.x, a.y / b.y);
-        }
-
-        public static Vector2 operator -(Vector2 a)
-        {
-            return new Vector2(0f - a.x, 0f - a.y);
-        }
-
-        public static Vector2 operator *(Vector2 a, float d)
-        {
-            return new Vector2(a.x * d, a.y * d);
-        }
-
-        public static Vector2 operator *(float d, Vector2 a)
-        {
-            return new Vector2(a.x * d, a.y * d);
-        }
-
-        public static Vector2 operator /(Vector2 a, float d)
-        {
-            return new Vector2(a.x / d, a.y / d);
-        }
-
-        public static bool operator ==(Vector2 lhs, Vector2 rhs)
-        {
-            float num = lhs.x - rhs.x;
-            float num2 = lhs.y - rhs.y;
-            return num * num + num2 * num2 < 9.9999994E-11f;
-        }
-
-        public static bool operator !=(Vector2 lhs, Vector2 rhs)
-        {
-            return !(lhs == rhs);
-        }
-
-        public float x;
-        public float y;
-    }
-
-    public class Rect
-    {
-        public Rect(float x, float y, float width, float height)
-        {
-            m_XMin = x;
-            m_YMin = y;
-            m_Width = width;
-            m_Height = height;
-        }
-
-        public Rect(Vector2 position, Vector2 size)
-        {
-            m_XMin = position.x;
-            m_YMin = position.y;
-            m_Width = size.x;
-            m_Height = size.y;
-        }
-
-        public Rect(Rect source)
-        {
-            m_XMin = source.m_XMin;
-            m_YMin = source.m_YMin;
-            m_Width = source.m_Width;
-            m_Height = source.m_Height;
-        }
-
-        public static Rect zero => new Rect(0f, 0f, 0f, 0f);
-
-        public float x
-        {
-            get
-            {
-                return m_XMin;
-            }
-            set
-            {
-                m_XMin = value;
-            }
-        }
-
-        public float y
-        {
-            get
-            {
-                return m_YMin;
-            }
-            set
-            {
-                m_YMin = value;
-            }
-        }
-
-        public Vector2 position
-        {
-            get
-            {
-                return new Vector2(m_XMin, m_YMin);
-            }
-            set
-            {
-                m_XMin = value.x;
-                m_YMin = value.y;
-            }
-        }
-
-        public Vector2 center
-        {
-            get
-            {
-                return new Vector2(x + m_Width / 2f, y + m_Height / 2f);
-            }
-            set
-            {
-                m_XMin = value.x - m_Width / 2f;
-                m_YMin = value.y - m_Height / 2f;
-            }
-        }
-
-        public Vector2 min
-        {
-            get
-            {
-                return new Vector2(xMin, yMin);
-            }
-            set
-            {
-                xMin = value.x;
-                yMin = value.y;
-            }
-        }
-
-        public Vector2 max
-        {
-            get
-            {
-                return new Vector2(xMax, yMax);
-            }
-            set
-            {
-                xMax = value.x;
-                yMax = value.y;
-            }
-        }
-
-        public float width
-        {
-            get
-            {
-                return m_Width;
-            }
-            set
-            {
-                m_Width = value;
-            }
-        }
-
-        public float height
-        {
-            get
-            {
-                return m_Height;
-            }
-            set
-            {
-                m_Height = value;
-            }
-        }
-
-        public Vector2 size
-        {
-            get
-            {
-                return new Vector2(m_Width, m_Height);
-            }
-            set
-            {
-                m_Width = value.x;
-                m_Height = value.y;
-            }
-        }
-
-        public float xMin
-        {
-            get
-            {
-                return m_XMin;
-            }
-            set
-            {
-                float num = xMax;
-                m_XMin = value;
-                m_Width = num - m_XMin;
-            }
-        }
-
-        public float yMin
-        {
-            get
-            {
-                return m_YMin;
-            }
-            set
-            {
-                float num = yMax;
-                m_YMin = value;
-                m_Height = num - m_YMin;
-            }
-        }
-
-        public float xMax
-        {
-            get
-            {
-                return m_Width + m_XMin;
-            }
-            set
-            {
-                m_Width = value - m_XMin;
-            }
-        }
-
-        public float yMax
-        {
-            get
-            {
-                return m_Height + m_YMin;
-            }
-            set
-            {
-                m_Height = value - m_YMin;
-            }
-        }
-
-        public bool Contains(Vector2 point)
-        {
-            return point.x >= xMin && point.x < xMax && point.y >= yMin && point.y < yMax;
-        }
-
-        private float m_XMin;
-        private float m_YMin;
-        private float m_Width;
-        private float m_Height;
-    }
-
     /// <summary>
     /// Represents a graph node in the theme graph.  This is the base class for all graph nodes
     /// </summary>
     public class GraphNode
     {
-        
-        
 		protected string id;
         /// <summary>
         /// The ID of the graph node
@@ -328,8 +23,6 @@ namespace DungeonArchitect.Graphs.Adapters
 			set { id = value; }
         }
 
-        
-        
         protected string caption;
         /// <summary>
         /// The caption label of the node. It is up to the implementation to draw this label, if needed
@@ -346,8 +39,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        
-        
         protected Rect bounds = new Rect(10, 10, 120, 120);
         /// <summary>
         /// The bounds of the node
@@ -364,32 +55,24 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        
-        
         protected bool canBeDeleted = true;
         public bool CanBeDeleted
         {
             get { return canBeDeleted; }
         }
 
-        
-        
         protected bool canBeSelected = true;
         public bool CanBeSelected
         {
             get { return canBeSelected; }
         }
 
-        
-        
         protected bool canBeMoved = true;
         public bool CanBeMoved
         {
             get { return canBeMoved; }
         }
 
-        
-        
         protected bool selected = false;
         /// <summary>
         /// Flag to indicate if the node has been selected
@@ -437,8 +120,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        
-        
         protected int zIndex;
         /// <summary>
         /// The Z-index of the node.  It determines if the node is on top of other nodes
@@ -455,8 +136,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        
-        
         protected List<GraphPin> inputPins;
         /// <summary>
         /// List of input pins owned by this node
@@ -469,8 +148,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        
-        
         protected List<GraphPin> outputPins;
         /// <summary>
         /// List of output pins owned by this node
@@ -507,8 +184,6 @@ namespace DungeonArchitect.Graphs.Adapters
             }
         }
 
-        
-        
         protected Graph graph;
 
         /// <summary>
@@ -553,6 +228,52 @@ namespace DungeonArchitect.Graphs.Adapters
         {
             get { return dragging; }
             set { dragging = value; }
+        }
+
+        /// <summary>
+        /// Creates a pin with the specified configuration
+        /// </summary>
+        /// <param name="pinType">The type of pin (input / output)</param>
+        /// <param name="position">The position of the pin, relative to the node bounds</param>
+        /// <param name="boundsOffset">The bounds of the pin, relative to the position</param>
+        /// <param name="tangent">The tangent of the pin.  Links connected to the pin would come out from this direction</param>
+        protected GraphPin CreatePin(GraphPinType pinType, Vector2 position, Rect boundsOffset, Vector2 tangent)
+        {
+            return CreatePinOfType<GraphPin>(pinType, position, boundsOffset, tangent);
+        }
+
+        protected T CreatePinOfType<T>(GraphPinType pinType) where T : GraphPin
+        {
+            return CreatePinOfType<T>(pinType, Vector2.zero, Rect.zero, Vector2.zero);
+        }
+
+        protected T CreatePinOfType<T>(GraphPinType pinType, Vector2 position, Rect boundsOffset, Vector2 tangent) where T : GraphPin
+        {
+            var pin = Activator.CreateInstance<T>();
+            pin.PinType = pinType;
+            pin.Node = this;
+            pin.Position = position;
+            pin.BoundsOffset = boundsOffset;
+            pin.Tangent = tangent;
+            if (pinType == GraphPinType.Input)
+            {
+                pin.name = this.name + "_InputPin";
+                if (inputPins == null)
+                {
+                    inputPins = new List<GraphPin>();
+                }
+                inputPins.Add(pin);
+            }
+            else
+            {
+                pin.name = this.name + "_OutputPin";
+                if (outputPins == null)
+                {
+                    outputPins = new List<GraphPin>();
+                }
+                outputPins.Add(pin);
+            }
+            return pin;
         }
 
         /// <summary>
@@ -603,6 +324,5 @@ namespace DungeonArchitect.Graphs.Adapters
         {
             Position += delta;
         }
-        
     }
 }
