@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DungeonArchitect.Flow.Items.Adapters;
 using DungeonArchitect.Utils.Adapters;
+using System.Numerics.Adapters;
 
 namespace DungeonArchitect.Flow.Domains.Layout.Pathing.Adapters
 {

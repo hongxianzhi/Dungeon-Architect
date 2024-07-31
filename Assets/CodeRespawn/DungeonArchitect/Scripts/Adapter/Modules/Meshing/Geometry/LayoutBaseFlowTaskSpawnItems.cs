@@ -1,6 +1,7 @@
 //$ Copyright 2015-22, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
-using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Collections.Generic;
 using DungeonArchitect.Flow.Exec.Adapters;
 using DungeonArchitect.Flow.Items.Adapters;
 using System.Numerics.Adapters;
@@ -121,13 +122,13 @@ namespace DungeonArchitect.Flow.Domains.Layout.Tasks.Adapters
                 float maxWeight = -float.MaxValue;
                 foreach(var pathNode in pathNodes)
                 {
-                    minWeight = Mathf.Min(minWeight, pathNode.weight);
-                    maxWeight = Mathf.Max(maxWeight, pathNode.weight);
+                    minWeight = Math.Min(minWeight, pathNode.weight);
+                    maxWeight = Math.Max(maxWeight, pathNode.weight);
                 }
 
                 foreach (var pathNode in pathNodes)
                 {
-                    if (Mathf.Abs(maxWeight - minWeight) > 1e-6f)
+                    if (Math.Abs(maxWeight - minWeight) > 1e-6f)
                     {
                         pathNode.weight = (pathNode.weight - minWeight) / (maxWeight - minWeight);
                     }
